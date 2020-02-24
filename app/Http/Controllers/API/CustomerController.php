@@ -19,16 +19,22 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
-        // $barang = DB::table('barang')->where('is_delete','=','0')
-        // ->orderBy('nama_barang','ASC')->get();
-        $customers =  DB::table('customer')->get();
-        // print "tes customer ".$customers;
-        // dd("tes customers".$customers);
-        return response()->json([
-            'status' => 'success',
-            'customers'  => $customers,
-        ], 200);
+        try {
+        // Validate the value...
+           $customers =  DB::table('customer')->get();
+            return response()->json([
+                'message' => 'success',
+                 'customers'  => $customers,
+            ], 200);    
+        } catch (Exception $e) {
+            report($e);
+           return response()->json([
+                'status' => 'error',
+                'message' => $e,
+                 'customers'  => $customers,
+            ], 404);   
+        }
+     
     }
 
     /**

@@ -8,8 +8,9 @@ app.controller('customersController', function ($scope, $http, API_URL) {
              }).then(function (response) {
                 $scope.customers = response.data.customers;
                 console.log(response);
-             }, function (error) {
-                console.log(error);
+
+             }, function (response) {
+                console.log(response);
                 alert('This is embarassing. An error has occurred. Please check the log for details');
             });
     };

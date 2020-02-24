@@ -32,7 +32,7 @@
                                     ng-click="toggle('add', 0)">Add New customer</button></th>
                         </tr>
                     </thead>
-                    <tbody ng-init="getAllCustomers{}">
+                    <tbody ng-init="getAllCustomers()">
                         <tr ng-repeat="customer in customers">
                             <td>@{{customer.id }}</td>
                             <td>@{{customer.name}}</td>
