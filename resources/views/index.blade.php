@@ -73,7 +73,7 @@
                                         <input type="text" class="form-control
                                             has-error" id="name" name="name"
                                             placeholder="Fullname"
-                                            value="[[name]]"
+                                            value="name"
                                             ng-model="customer.name"
                                             ng-required="true">
                                         <span class="help-inline"
@@ -90,7 +90,7 @@
                                         <input type="email" class="form-control"
                                             id="email" name="email"
                                             placeholder="Email Address"
-                                            value="[[email]]"
+                                            value="email"
                                             ng-model="customer.email"
                                             ng-required="true">
                                         <span class="help-inline"
@@ -108,7 +108,7 @@
                                             id="contact_number"
                                             name="contact_number"
                                             placeholder="Contact Number"
-                                            value="[[contact_number]]"
+                                            value="contact_number"
                                             ng-model="customer.contact_number"
                                             ng-required="true">
                                         <span class="help-inline"

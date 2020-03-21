@@ -1,5 +1,9 @@
 app.controller('customersController', function ($scope, $http, API_URL) {
-    
+    $scope.customer = {
+        name : "",
+        email :"",
+        contact_number :"",
+    }
     //fetch customers listing from 
     $scope.getAllCustomers = function () {
         $http({
@@ -11,22 +15,9 @@ app.controller('customersController', function ($scope, $http, API_URL) {
 
              }, function (response) {
                 console.log(response);
-                alert('This is embarassing. An error has occurred. Please check the log for details');
+                alert('Ada error pada db. Tidak bisa load customer.');
             });
     };
-
-    // $http({
-    //     method: 'GET',
-    //     url: API_URL + "customer"
-    // }).then(function (response) {
-    //     $scope.customers = response.data.customers;
-    //     console.log(response);
-    // }, function (error) {
-    //     console.log(error);
-    //     alert('This is embarassing. An error has occurred. Please check the log for details');
-    // });
-
-    //show modal form
 
     $scope.toggle = function (modalstate, id) {
         $scope.modalstate = modalstate;
@@ -39,7 +30,7 @@ app.controller('customersController', function ($scope, $http, API_URL) {
             case 'edit':
                 $scope.form_title = "Customer Detail";
                 $scope.id = id;
-                $http.get(API_URL + 'customers/' + id)
+                $http.get(API_URL + 'customer/' + id)
                     .then(function (response) {
                         console.log(response);
                         $scope.customer = response.data.customer;
@@ -55,27 +46,31 @@ app.controller('customersController', function ($scope, $http, API_URL) {
 
     //save new record and update existing record
     $scope.save = function (modalstate, id) {
-        var url = API_URL + "customers";
+        console.log("tes save")
+        var url = API_URL + "customer/";
         var method = "POST";
 
         //append customer id to the URL if the form is in edit mode
         if (modalstate === 'edit') {
-            url += "/" + id;
-
-            method = "PUT";
+            url += "edit/" + id;
+            method = "POST";
+        } else {
+             url += "create";
         }
-
+        console.log("tes url ", url)
         $http({
             method: method,
             url: url,
-            data: $.param($scope.customer),
+            params: $scope.customer,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function (response) {
+            console.log("tes save berhasil")
             console.log(response);
             location.reload();
-        }), (function (error) {
-            console.log(error);
-            alert('This is embarassing. An error has occurred. Please check the log for details');
+        }, function (error) {
+            console.log("tes save gagal")
+            console.log("tes error",error);
+            alert(Tidak bisa menghapus/menyimpan data.);
         });
     }
 
@@ -83,19 +78,18 @@ app.controller('customersController', function ($scope, $http, API_URL) {
     $scope.confirmDelete = function (id) {
         var isConfirmDelete = confirm('Are you sure you want this record?');
         if (isConfirmDelete) {
-
             $http({
-                method: 'DELETE',
-                url: API_URL + 'customers/' + id
+                method: 'GET',
+                url: API_URL + 'customer/delete/' + id
             }).then(function (response) {
-                console.log(response);
+                console.log("tes response ",response);
                 location.reload();
             }, function (error) {
-                console.log(error);
-                alert('Unable to delete');
+                console.log("tes error ",error);
+                alert('Tidak bisa menghapus customers');
             });
         } else {
-            return false;
+             alert('Tidak bisa menghapus customers');
         }
     }
 });

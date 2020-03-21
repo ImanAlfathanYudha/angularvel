@@ -20,4 +20,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => '/v1'], function() {
 	Route::get('/customer', 'API\CustomerController@index');
 	Route::get('/customer/{id}', 'API\CustomerController@show');
+	Route::post('/customer/create', 'API\CustomerController@store');
+	Route::post('/customer/edit/{id}', 'API\CustomerController@update');
+	Route::get('/customer/delete/{id}','API\CustomerController@destroy');
+	//Route for post
+	
 });

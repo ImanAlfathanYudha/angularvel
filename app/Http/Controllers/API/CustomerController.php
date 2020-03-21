@@ -48,17 +48,16 @@ class CustomerController extends Controller
         //
         $validation = Validator::make($request->all(),[ 
             'name' => 'required',
-            'email' => 'required|email|unique:customers,email',
+            'email' => 'required|email|unique:customer,email',
             'contact_number' => 'required',
-            'position' => 'required',
         ]);
-
-        if($validation->fails()){
+        try {
+         if($validation->fails()){
             return response()->json([
                 'status' => 'error',
                 'messages'  => $validation->errors(),
             ], 200);
-        }
+         }
         else
         {
             $customer = new Customer;
@@ -66,12 +65,20 @@ class CustomerController extends Controller
             $customer->email = $request->input('email');
             $customer->contact_number = $request->input('contact_number');
             $customer->save();
-    
             return response()->json([
                 'status' => 'success',
+                'messages'  => "successfully created an customers",
                 'customer'  => $customer,
             ], 200);
         }
+        } catch (Exception $e) {
+              return response()->json([
+                'status' => 'error',
+                'messages'  => "failed to create customers.",
+            ], 200);
+        }
+
+       
     }
 
     /**
@@ -113,7 +120,7 @@ class CustomerController extends Controller
             'email' => 'required|email',
             'contact_number' => 'required',
         ]);
-
+        try {
         if($validation->fails()){
             return response()->json([
                 'error' => true,
@@ -122,16 +129,23 @@ class CustomerController extends Controller
         }
         else
         {
-            $customer = Customer::find($id);
-            $customer->name = $request->input('name');
-            $customer->email = $request->input('email');
-            $customer->contact_number = $request->input('contact_number');
-            $customer->save();
-    
+            DB::table('customer')
+            ->where('id', $id)
+            ->update ([
+                'name' => $request["name"],
+                'email' => $request["email"],
+                'contact_number' => $request["contact_number"]
+            ]);
             return response()->json([
                 'error' => false,
-                'customer'  => $customer,
+                'messages'  => "successfully updating customers.",
             ], 200);
+        }
+        } catch (Exception $e) {
+                  return response()->json([
+                    'status' => 'error',
+                    'messages'  => "failed to update customers.",
+                ], 404);
         }
     }
 
@@ -143,7 +157,21 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
-        
+        try {
+            //
+            $customer = \App\Customer::find($id);
+            if($customer!=null) {
+                $customer->delete();
+                return response()->json([
+                    'error' => false,
+                    'messages'  => "successfully deleting customers with id.". $id,
+                ], 200);
+            }
+        } catch (Exception $e) {
+             return response()->json([
+                    'status' => 'error',
+                    'messages'  => "failed deleting customers.",
+            ], 404);
+        }
     }
 }
