@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" ng-app="customerRecords" ng-controller="customersController">
+<html lang="en" ng-app="latihanRecords" ng-controller="customersController">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">

@@ -70,7 +70,7 @@ app.controller('customersController', function ($scope, $http, API_URL) {
         }, function (error) {
             console.log("tes save gagal")
             console.log("tes error",error);
-            alert(Tidak bisa menghapus/menyimpan data.);
+            alert('Tidak bisa menghapus/menyimpan data.');
         });
     }
 

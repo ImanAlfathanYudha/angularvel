@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-// Route::get('/customer', 'API\CustomerController@index');
+
 Route::group(['prefix' => '/v1'], function() {
 	Route::get('/customer', 'API\CustomerController@index');
 	Route::get('/customer/{id}', 'API\CustomerController@show');
@@ -24,5 +24,5 @@ Route::group(['prefix' => '/v1'], function() {
 	Route::post('/customer/edit/{id}', 'API\CustomerController@update');
 	Route::get('/customer/delete/{id}','API\CustomerController@destroy');
 	//Route for post
-	
+	Route::get('/post', 'API\PostController@getAllPost');
 });
