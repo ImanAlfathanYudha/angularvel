@@ -18,5 +18,8 @@ Route::get('/home', function () {
     return view('index');
 });
 Route::get('/post', function () {
-    return view('post');
+    return view('post/post');
+});
+Route::get('/post/create', function () {
+    return view('post/create');
 });
