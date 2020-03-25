@@ -23,7 +23,7 @@ class CustomerController extends Controller
         // Validate the value...
            $customers =  DB::table('customer')->get();
             return response()->json([
-                'message' => 'success',
+                  'status' => 'success',
                  'customers'  => $customers,
             ], 200);    
         } catch (Exception $e) {
@@ -64,7 +64,7 @@ class CustomerController extends Controller
             $customer->name = $request->input('name');
             $customer->email = $request->input('email');
             $customer->contact_number = $request->input('contact_number');
-            $customer->save();
+            // $customer->save();
             return response()->json([
                 'status' => 'success',
                 'messages'  => "successfully created an customers",
@@ -74,7 +74,7 @@ class CustomerController extends Controller
         } catch (Exception $e) {
               return response()->json([
                 'status' => 'error',
-                'messages'  => "failed to create customers.",
+                'messages'  => $e,
             ], 200);
         }
 
@@ -94,13 +94,13 @@ class CustomerController extends Controller
 
         if(is_null($customer)){
             return response()->json([
-                'error' => true,
+                'status' => 'success',
                 'message'  => "Record with id # $id not found",
             ], 404);
         }
 
         return response()->json([
-            'error' => 'success',
+            'status' => 'success',
             'customer'  => $customer,
         ], 200);
     }
@@ -123,7 +123,7 @@ class CustomerController extends Controller
         try {
         if($validation->fails()){
             return response()->json([
-                'error' => true,
+                'status' => 'error',
                 'messages'  => $validation->errors(),
             ], 200);
         }
@@ -137,7 +137,7 @@ class CustomerController extends Controller
                 'contact_number' => $request["contact_number"]
             ]);
             return response()->json([
-                'error' => false,
+                'status' => 'success',
                 'messages'  => "successfully updating customers.",
             ], 200);
         }
@@ -163,7 +163,7 @@ class CustomerController extends Controller
             if($customer!=null) {
                 $customer->delete();
                 return response()->json([
-                    'error' => false,
+                    'status' => 'success',
                     'messages'  => "successfully deleting customers with id.". $id,
                 ], 200);
             }
