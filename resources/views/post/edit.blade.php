@@ -12,7 +12,7 @@
             integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             crossorigin="anonymous">
 
-        <title>Post Section Laravel 6 Crud application Angular JS Tutorial</title>
+        <title>Edit</title>
     </head>
     <body>
         <div class="container">
