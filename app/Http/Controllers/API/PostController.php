@@ -20,7 +20,7 @@ class PostController extends Controller
                 'posts'  => $listPost,
             ], 200);
 	 	} catch (Exception $e) {
-            report($e);
+           report($e);
            return response()->json([
                 'status' => 'error',
                 'message' => $e,
@@ -33,9 +33,9 @@ class PostController extends Controller
         //
         try {         
 			 $post = new Post([
-			        'title' => $request->get('title'),
-			        'body' => $request->get('body')
-			      ]);
+			       'title' => $request->get('title'),
+			       'body' => $request->get('body')
+			  ]);
       		$post->save();
             return response()->json([
                 'status' => 'success',
@@ -45,8 +45,30 @@ class PostController extends Controller
         } catch (Exception $e) {
               return response()->json([
                 'status' => 'error',
-                'messages'  => "failed to create post.",
-            ], 200);
+                'messages'  => $e,
+            ], 404);
         }
+    }
+
+    public function getPostDetail ($id) {
+    	try {
+    		$post = Post::find($id);
+       		 if(is_null($post)){
+            return response()->json([
+                'status' => 'error',
+                'message'  => "Post dengan id ".$id."tidak ditemukan",
+            ], 404);
+        }
+        return response()->json([
+            'status' => 'success',
+            'post'  => $post,
+        ], 200);
+    	}catch (Exception $e) {
+    	   report($e);
+           return response()->json([
+                'status' => 'error',
+                'message' => $e,
+            ], 404);
+    	}    
     }
 }

@@ -19,7 +19,7 @@
             <header>
                 <h2>Post</h2>
             </header>
-            <a type="button" id="createPostButton" href="/create"><i>Create Post</i></a>
+            <a type="button" id="createPostButton" href="post/create"><i>Create Post</i></a>
             <div>
                 <table class="table">
                     <thead>

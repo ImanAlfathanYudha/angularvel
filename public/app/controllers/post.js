@@ -1,4 +1,4 @@
-app.controller('postController', function ($scope, $http, API_URL, $location) {
+app.controller('postController', function ($scope, $http, API_URL, $location,  $window) {
     $scope.postInput = {
         title : "",
         body :"",
@@ -15,7 +15,7 @@ app.controller('postController', function ($scope, $http, API_URL, $location) {
                 alert('Ada error pada db. Tidak bisa load post.');
         });
     };
-
+    
     //save new record and update existing record
     $scope.save = function () {
         console.log("tes save")
@@ -30,12 +30,11 @@ app.controller('postController', function ($scope, $http, API_URL, $location) {
         }).then(function (response) {
             console.log("tes save berhasil")
             console.log(response);
-            location.reload();
-            // return $location.path('/post');
+            window.location = '/post'
         }, function (error) {
             console.log("tes save gagal")
             console.log("tes error",error);
-            alert('Tidak bisa menghapus/menyimpan data.');
+            alert('Tidak bisa merubah/menyimpan data.');
         });
     };
 

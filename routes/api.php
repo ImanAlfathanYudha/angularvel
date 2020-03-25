@@ -25,5 +25,7 @@ Route::group(['prefix' => '/v1'], function() {
 	Route::get('/customer/delete/{id}','API\CustomerController@destroy');
 	//Route for post
 	Route::get('/post', 'API\PostController@getAllPost');
+	Route::get('/post/{id}', 'API\PostController@getPostDetail');
 	Route::post('/post/create', 'API\PostController@store');
+
 });
