@@ -1,4 +1,4 @@
-app.controller('postController', function ($scope, $http, API_URL) {
+app.controller('postController', function ($scope, $http, API_URL, $location) {
     $scope.postInput = {
         title : "",
         body :"",
@@ -21,6 +21,7 @@ app.controller('postController', function ($scope, $http, API_URL) {
         console.log("tes save")
         var url = API_URL + "post/create";
         var method = "POST";
+        console.log("tes params ",$scope.postInput);
          $http({
             method: method,
             url: url,
@@ -30,6 +31,7 @@ app.controller('postController', function ($scope, $http, API_URL) {
             console.log("tes save berhasil")
             console.log(response);
             location.reload();
+            // return $location.path('/post');
         }, function (error) {
             console.log("tes save gagal")
             console.log("tes error",error);

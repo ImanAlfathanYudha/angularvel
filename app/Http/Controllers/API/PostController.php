@@ -27,4 +27,26 @@ class PostController extends Controller
             ], 404);
         }
 	}
+
+	public function store(Request $request)
+    {
+        //
+        try {         
+			 $post = new Post([
+			        'title' => $request->get('title'),
+			        'body' => $request->get('body')
+			      ]);
+      		$post->save();
+            return response()->json([
+                'status' => 'success',
+                'messages'  => "successfully created an post",
+                'post'  => $post,
+            ], 200);
+        } catch (Exception $e) {
+              return response()->json([
+                'status' => 'error',
+                'messages'  => "failed to create post.",
+            ], 200);
+        }
+    }
 }
