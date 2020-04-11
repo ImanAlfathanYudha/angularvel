@@ -19,7 +19,7 @@
             <header>
                 <h2>Post</h2>
             </header>
-            <div ng-init="getPostDetail()">
+            <div ng-init="getPostDetail({{$id}})">
             <form name="frmcustomers" class="form-horizontal"
                                 novalidate="">
 

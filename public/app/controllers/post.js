@@ -39,10 +39,10 @@ app.controller('postController', function ($scope, $http, API_URL) {
     };
 
     //fetch post detail
-    $scope.getPostDetail = function () {
+    $scope.getPostDetail = function (id) {
         // var id = $routeParams.id;
-        // console.log("tes id ",id);
-        $http.get(API_URL + '/post/')
+        console.log("tes id ",id);
+        $http.get(API_URL + 'post/'+id)
             .then(function (response) {
                 console.log("tes response ",response);
                 $scope.post = response.data.post;

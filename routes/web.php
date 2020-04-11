@@ -23,6 +23,6 @@ Route::get('/post', function () {
 Route::get('/post/create', function () {
     return view('post/create');
 });
-Route::get('/post/edit/{id}', function () {
-    return view('post/edit');
+Route::get('/post/edit/{id}', function ($id) {
+    return view('post/edit')->with('id', $id);
 });
