@@ -19,31 +19,38 @@
             <header>
                 <h2>Post</h2>
             </header>
-            <div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                          <th>ID</th>
-                            <th>Judul</th>
-                            <th>Isi</th>
-                            <th>-</th>   
-                        </tr>
-                    </thead>
-                    <tbody ng-init="getAllPosts()">
-                        <tr ng-repeat="post in posts">
-                            <td>@{{post.id }}</td>
-                            <td>@{{post.title}}</td>
-                            <td>@{{post.body}}</td>
-                            <td>
-                                <button class="btn btn-default btn-xs
-                                    btn-detail"
-                                    ng-click="">Edit</button>
-                                <button class="btn btn-danger btn-xs btn-delete"
-                                    ng-click="">Delete</button>
-                            </td> 
-                        </tr>
-                    </tbody>
-                </table>
+            <div ng-init="getPostDetail()">
+            <form name="frmcustomers" class="form-horizontal"
+                                novalidate="">
+
+                                <div class="form-group error">
+                                    <label for="inputEmail3" class="col-sm-12
+                                        control-label">Judul</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control
+                                            has-error" id="title" name="title"
+                                            placeholder="Judul"
+                                            value="title"
+                                            ng-model="post.title"
+                                           required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-12
+                                        control-label">Isi</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control"
+                                            id="body" name="body"
+                                            placeholder="Isi"
+                                            value="body"
+                                            ng-model="post.body"
+                                            required="">
+                                    </div>
+                                </div>
+                            </form>
+                            <button type="button" class="btn btn-primary"
+                                id="btn-save" ng-click="save()">Save changes</button>
             </div>
             <!-- Modal -->
         </div>

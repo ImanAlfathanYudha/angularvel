@@ -80,7 +80,7 @@ app.controller('customersController', function ($scope, $http, API_URL) {
         if (isConfirmDelete) {
             $http({
                 method: 'GET',
-                url: API_URL + 'customer/delete/' + id
+                url: API_URL + 'post/delete/' + id
             }).then(function (response) {
                 console.log("tes response ",response);
                 location.reload();

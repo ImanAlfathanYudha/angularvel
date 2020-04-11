@@ -36,11 +36,11 @@
                             <td>@{{post.title}}</td>
                             <td>@{{post.body}}</td>
                             <td>
-                                <button class="btn btn-default btn-xs
+                                <a href="post/edit/@{{post.id}}" class="btn btn-default btn-xs
                                     btn-detail"
-                                    ng-click="">Edit</button>
+                                    >Edit</a>
                                 <button class="btn btn-danger btn-xs btn-delete"
-                                    ng-click="">Delete</button>
+                                    ng-click="confirmDelete(post.id)">Delete</button>
                             </td> 
                         </tr>
                     </tbody>

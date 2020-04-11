@@ -1,4 +1,4 @@
-app.controller('postController', function ($scope, $http, API_URL, $location,  $window) {
+app.controller('postController', function ($scope, $http, API_URL) {
     $scope.postInput = {
         title : "",
         body :"",
@@ -38,8 +38,37 @@ app.controller('postController', function ($scope, $http, API_URL, $location,  $
         });
     };
 
+    //fetch post detail
+    $scope.getPostDetail = function () {
+        // var id = $routeParams.id;
+        // console.log("tes id ",id);
+        $http.get(API_URL + '/post/')
+            .then(function (response) {
+                console.log("tes response ",response);
+                $scope.post = response.data.post;
+        });
+    };
+
     // //delete record
     // $scope.confirmDelete = function (id) {
     
     // };
+    $scope.confirmDelete = function (id) {
+        var isConfirmDelete = confirm('Are you sure you want this record?');
+        if (isConfirmDelete) {
+            $http({
+                method: 'GET',
+                url: API_URL + 'post/delete/' + id
+            }).then(function (response) {
+                console.log("tes response ",response);
+                window.location = '/post'
+            }, function (error) {
+                console.log("tes error ",error);
+                alert('Tidak bisa menghapus customers');
+            });
+        } else {
+             alert('Tidak jadi menghapus customers');
+        }
+    }
+
 });
