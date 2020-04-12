@@ -16,6 +16,33 @@ app.controller('postController', function ($scope, $http, API_URL) {
         });
     };
     
+    $scope.update = function (id) {
+        console.log("tes update")
+        var url = API_URL + "post/edit/";
+        //append customer id to the URL if the form is in edit mode
+        var params = {
+            title : $('#title').val(),
+            body :$('#body').val(),
+        };
+        console.log("tes params ",params);
+        $http({
+            method: "POST",
+            url: url+id,
+            params: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(function (response) {
+            console.log("tes update berhasil")
+            console.log(response);
+            window.location = '/post'
+            alert('Berhasil merubah post.');
+        }, function (error) {
+            console.log("tes post gagal")
+            console.log("tes error",error);
+            alert('Tidak bisa merubah/menyimpan data.');
+        });
+    }
+
+
     //save new record and update existing record
     $scope.save = function () {
         console.log("tes save")

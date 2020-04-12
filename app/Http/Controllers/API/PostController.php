@@ -50,6 +50,41 @@ class PostController extends Controller
         }
     }
 
+     public function update(Request $request, $id)
+    {
+        //
+        $validation = Validator::make($request->all(),[ 
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+        try {
+        if($validation->fails()){
+            return response()->json([
+                'status' => 'error',
+                'messages'  => $validation->errors(),
+            ], 404);
+        }
+        else
+        {
+            DB::table('post')
+            ->where('id', $id)
+            ->update ([
+                'title' => $request["title"],
+                'body' => $request["body"]
+            ]);
+            return response()->json([
+                'status' => 'success',
+                'messages'  => "successfully updating post.",
+            ], 200);
+        }
+        } catch (Exception $e) {
+                  return response()->json([
+                    'status' => 'error',
+                    'messages'  => "failed to update post.",
+                ], 404);
+        }
+    }
+
     public function getPostDetail ($id) {
     	try {
     		$post = Post::find($id);

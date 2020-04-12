@@ -50,7 +50,7 @@
                                 </div>
                             </form>
                             <button type="button" class="btn btn-primary"
-                                id="btn-save" ng-click="save()">Save changes</button>
+                                id="btn-save" ng-click="update({{$id}})">Save changes</button>
             </div>
             <!-- Modal -->
         </div>
