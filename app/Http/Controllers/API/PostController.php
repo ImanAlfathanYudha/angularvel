@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Post;
+use App\Comment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -94,9 +95,15 @@ class PostController extends Controller
                 'message'  => "Post dengan id ".$id."tidak ditemukan",
             ], 404);
         }
+        // $post = Post::find($id);
+         $comments = DB::table('comment')
+            ->where('id_post',$id)
+            ->orderBy('timestamp','DESC')->get(); 
+        // dd($comments);
         return response()->json([
             'status' => 'success',
             'post'  => $post,
+            'comment' => $comments,
         ], 200);
     	}catch (Exception $e) {
     	   report($e);
