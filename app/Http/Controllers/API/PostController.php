@@ -86,25 +86,40 @@ class PostController extends Controller
         }
     }
 
+    public function getCommentsByPostID ($id_post) {
+        try {
+            $comments = DB::table('comment')
+                ->where('id_post',$id_post)
+                ->orderBy('timestamp','DESC')->get(); 
+            return response()->json([
+                'status' => 'success',
+                'comments'  => $comments,
+            ], 200);
+        } catch (Exception $e) {
+            report($e);
+            return response()->json([
+                'status' => 'error',
+                'message' => $e,
+            ], 404);
+        }    
+    }
+
     public function getPostDetail ($id) {
     	try {
     		$post = Post::find($id);
-       		 if(is_null($post)){
+       		if(is_null($post)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message'  => "Post dengan id ".$id."tidak ditemukan",
+                ], 404);
+            }
+            $comments = DB::table('comment')
+                ->where('id_post',$id)
+                ->orderBy('timestamp','DESC')->get(); 
             return response()->json([
-                'status' => 'error',
-                'message'  => "Post dengan id ".$id."tidak ditemukan",
-            ], 404);
-        }
-        // $post = Post::find($id);
-         $comments = DB::table('comment')
-            ->where('id_post',$id)
-            ->orderBy('timestamp','DESC')->get(); 
-        // dd($comments);
-        return response()->json([
-            'status' => 'success',
-            'post'  => $post,
-            'comment' => $comments,
-        ], 200);
+                'status' => 'success',
+                'post'  => $post,
+            ], 200);
     	}catch (Exception $e) {
     	   report($e);
            return response()->json([
