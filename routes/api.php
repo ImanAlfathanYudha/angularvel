@@ -30,5 +30,5 @@ Route::group(['prefix' => '/v1'], function() {
 	Route::get('/post/delete/{id}','API\PostController@destroy');
 	Route::post('/post/edit/{id}', 'API\PostController@update');
 	Route::get('/comment/{id_post}', 'API\PostController@getCommentsByPostID');
-	
+	Route::post('/comment/create', 'API\PostController@storeComment');
 });

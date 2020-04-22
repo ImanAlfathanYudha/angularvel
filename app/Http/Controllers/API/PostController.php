@@ -104,6 +104,22 @@ class PostController extends Controller
         }    
     }
 
+    public function storeComment(Request $request) {
+        try {
+            $comment = new Comment([        
+                'id_post' => $request->get('id_post'),
+                'body' => $request->get('body')
+            ]);      
+            $comment->save();
+        } catch (Exception $e) {
+            report($e);
+            return response()->json([
+                'status' => 'error',
+                'message' => $e,
+            ], 404);
+        }
+    }
+
     public function getPostDetail ($id) {
     	try {
     		$post = Post::find($id);
