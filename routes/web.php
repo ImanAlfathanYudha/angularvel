@@ -26,3 +26,6 @@ Route::get('/post/create', function () {
 Route::get('/post/edit/{id}', function ($id) {
     return view('post/edit')->with('id', $id);
 });
+Route::get('/post/view/{post_id}', function ($post_id) {
+    return view('post/detail')->with('post_id', $post_id);
+});

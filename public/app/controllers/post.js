@@ -61,13 +61,12 @@ app.controller('postController', function ($scope, $http, API_URL) {
         }, function (error) {
             console.log("tes save gagal")
             console.log("tes error",error);
-            alert('Tidak bisa merubah/menyimpan data.');
+            alert('Tidak bisa menyimpan data.');
         });
     };
 
     //fetch post detail
     $scope.getPostDetail = function (id) {
-        // var id = $routeParams.id;
         console.log("tes id ",id);
         $http.get(API_URL + 'post/'+id)
             .then(function (response) {
@@ -76,10 +75,6 @@ app.controller('postController', function ($scope, $http, API_URL) {
         });
     };
 
-    // //delete record
-    // $scope.confirmDelete = function (id) {
-    
-    // };
     $scope.confirmDelete = function (id) {
         var isConfirmDelete = confirm('Are you sure you want this record?');
         if (isConfirmDelete) {
@@ -97,5 +92,46 @@ app.controller('postController', function ($scope, $http, API_URL) {
              alert('Tidak jadi menghapus customers');
         }
     }
+
+   //save new Comment
+    $scope.saveComment = function (id) {
+        console.log("tes saveComment")
+        var url = API_URL + "comment/create";
+        var method = "POST";
+        var params = {
+            id_post : id,
+            body :$('#body').val(),
+        };
+        console.log("tes params ",params);
+         $http({
+            method: method,
+            url: url,
+            params: params,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+        }).then(function (response) {
+            console.log("tes save comment berhasil")
+            console.log(response);
+            window.location = '/post/view/'+id
+        }, function (error) {
+            console.log("tes save gagal")
+            console.log("tes error",error);
+            alert('Tidak bisa menyimpan data.');
+        });
+    }
+
+    //fetch post detail
+    $scope.getCommentsByPostID = function (id) {
+        console.log("tes id ",id);
+        $http.get(API_URL + 'comment/'+id)
+            .then(function (response) {
+                $scope.comments = response.data.comments;
+                console.log("tes $scope.comments ",$scope.comments);
+        });
+    };
+
+    // //delete record
+    // $scope.confirmDelete = function (id) {
+    
+    // };
 
 });

@@ -12,7 +12,7 @@
             integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             crossorigin="anonymous">
 
-        <title>Post Section Laravel 6 Crud application Angular JS Tutorial</title>
+        <title>Post Detail Laravel 6 Crud application Angular JS Tutorial</title>
     </head>
     <body>
         <div class="container">
@@ -20,30 +20,46 @@
                 <h2>Post</h2>
             </header>
             <a type="button" id="createPostButton" href="post/create"><i>Create Post</i></a>
-            <div>
+            <div ng-init="getPostDetail({{$post_id}})">
                 <table class="table">
                     <thead>
                         <tr>
                           <th>ID</th>
                             <th>Judul</th>
                             <th>Isi</th>
-                            <th>-</th>   
                         </tr>
                     </thead>
-                    <tbody ng-init="getAllPosts()">
-                        <tr ng-repeat="post in posts">
-                            <td>@{{post.id }}</td>
+                    <tbody>
+                        <tr>
+                            <td>@{{post.id}}</td>
                             <td>@{{post.title}}</td>
                             <td>@{{post.body}}</td>
-                            <td>
-                                <a href="post/view/@{{post.id}}" class="btn btn-default btn-xs btn-detail">Detail</a>
-                                <a href="post/edit/@{{post.id}}" class="btn btn-default btn-xs btn-detail">Edit</a>
-                                <button class="btn btn-danger btn-xs btn-delete"
-                                    ng-click="confirmDelete(post.id)">Delete</button>
-                            </td> 
                         </tr>
                     </tbody>
                 </table>
+                <div ng-init="getCommentsByPostID({{$post_id}})">
+                    <h2>Comments</h2>
+                    <div ng-repeat="comment in comments">
+                        <p><bold>@{{comment.body}}</bold></p>
+                        <p>@{{comment.timestamp}}</p>
+                    </div>
+                </div>   
+                <div>
+                 <h2>Write your comment here!</h2>   
+                 <form name="frmcustomers" class="form-horizontal" novalidate="">
+                                <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-12
+                                        control-label">Isi</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control
+                                            has-error" id="body" name="body"
+                                            placeholder="Write your comment.."
+                                           required>
+                                    </div>
+                                </div>
+                 </form>
+                    <button type="button" class="btn btn-primary" id="btn-save" ng-click="saveComment(post.id)">Save changes</button>
+            </div> 
             </div>
             <!-- Modal -->
         </div>
