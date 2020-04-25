@@ -165,4 +165,24 @@ class PostController extends Controller
         }
     }
 
+    public function destroyComment($id)
+    {
+        try {
+            //
+            $comment = \App\Comment::find($id);
+            if($comment!=null) {
+                $comment->delete();
+                return response()->json([
+                    'status' => 'success',
+                    'messages'  => "successfully deleting comment with id.". $id,
+                ], 200);
+            }
+        } catch (Exception $e) {
+             return response()->json([
+                    'status' => 'error',
+                    'messages'  => "failed deleting comment.",
+            ], 404);
+        }
+    }
+
 }
