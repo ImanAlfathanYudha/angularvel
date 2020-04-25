@@ -129,9 +129,20 @@ app.controller('postController', function ($scope, $http, API_URL) {
         });
     };
 
-    // //delete record
-    // $scope.confirmDelete = function (id) {
-    
-    // };
+    $scope.deleteComment = function (id,id_post) {
+        $http(
+        {               
+         method: 'GET',
+         url: API_URL + 'comment/delete/' + id
+        }
+        ).then(function (response) {
+            console.log("tes response ",response);
+            alert('Komentar berhasil dihapus.');
+            window.location = '/post/view/'+id_post
+        }, function (error) {
+            console.log("tes error ",error);
+            alert('Tidak bisa menghapus komentar');
+        });
+    }
 
 });

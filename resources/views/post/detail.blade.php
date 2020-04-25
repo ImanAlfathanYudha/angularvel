@@ -41,22 +41,19 @@
                     <h2>Comments</h2>
                     <div ng-repeat="comment in comments">
                         <p><bold>@{{comment.body}}</bold></p>
-                        <p>@{{comment.timestamp}}</p>
+                        <p>@{{comment.timestamp}} <button class="btn btn-danger btn-xs btn-delete"
+                                    ng-click="deleteComment(comment.id, comment.id_post)">Delete</button></p>
                     </div>
                 </div>   
                 <div>
                  <h2>Write your comment here!</h2>   
                  <form name="frmcustomers" class="form-horizontal" novalidate="">
-                                <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-12
-                                        control-label">Isi</label>
-                                    <div class="col-sm-12">
-                                        <input type="text" class="form-control
-                                            has-error" id="body" name="body"
-                                            placeholder="Write your comment.."
-                                           required>
-                                    </div>
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-12 control-label">Isi</label>
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control has-error" id="body" name="body" placeholder="Write your comment.."required>
                                 </div>
+                        </div>
                  </form>
                     <button type="button" class="btn btn-primary" id="btn-save" ng-click="saveComment(post.id)">Save changes</button>
             </div> 
